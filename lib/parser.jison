@@ -1,3 +1,7 @@
+// Parse of incoming requests to an IRC server.
+// Based on https://tools.ietf.org/html/rfc2812 and reverse engineering existing server and clients.
+
+// Lexing rules
 %lex
 
 %%
@@ -5,24 +9,26 @@
 \r?\n                 return 'CRLF'
 \s                    // ignore spaces
 
+// Commands
 'NICK'                return 'NICK'
 'USER'                return 'USER'
 'JOIN'                return 'JOIN'
 'PRIVMSG'             return 'PRIVMSG'
 'QUIT'                return 'QUIT'
 
-":"[^\r\n]+           return 'STRING'
-
+// Arguments
+":"[^\r\n]+           return 'STRING' // string match everything until end of line
 '#'\w+                return 'CHANNEL'
-
 [^\s]+                return 'WORD'
 
 <<EOF>>               return 'EOF'
 
 /lex
 
+// Parsing rules
 %%
 
+// Data received by the server can contain multiple requests.
 data:
   requests EOF
 ;
@@ -33,7 +39,10 @@ requests:
 ;
 
 request:
+  // Instead of returning objects, we use a callback each time we match a request.
   command CRLF                  { yy.onRequest($1) }
+  // `error` is for error recovery: http://dinosaur.compilertools.net/bison/bison_9.html#SEC81
+  // If there's an error while parsing a command, this rule will catch it.
 | error CRLF
 ;
 
@@ -50,9 +59,9 @@ string:
 ;
 
 %%
-// Custom code in the parser
+// Custom code added to the generated parser.
 
-// Set our own callback
+// Set the callback for when a request is parsed
 parser.onRequest = function(callback) {
   this.yy.onRequest = callback
 }
