@@ -1,0 +1,27 @@
+{
+  "name": "ircd",
+  "version": "0.0.1",
+  "description": "ircd: an IRC server",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/greatcodeclub/ircd.git"
+  },
+  "keywords": [
+    "irc",
+    "server"
+  ],
+  "author": "Marc-Andre Cournoyer",
+  "bugs": {
+    "url": "https://github.com/greatcodeclub/ircd/issues"
+  },
+  "dependencies": {
+    "underscore": "1.x"
+  },
+  "devDependencies": {
+    "mocha": "1.x",
+    "jison": "0.x"
+  }
+}
