@@ -3,26 +3,23 @@
 # Others are sent by the server.
 # https://tools.ietf.org/html/rfc2812
 
-# Signing-in
+## Signing-in
 > NICK nickname
 > USER login 0 * :Full Name
 :server.net 001 nickname :Welcome
 
-# Joining a channel
+## Joining a channel
 > JOIN #channel
 :nickname!~login@userhost.com JOIN #channel
 :server.net 353 nickname @ #channel :@nickname
 :server.net 366 nickname #channel :End of /NAMES list.
 
-# Send a message
+## Send a message
 > PRIVMSG #channel :Hi there
 
-# Broadcasting message to others
+## Broadcasting message to others
 :nickname!~login@userhost.com PRIVMSG #channel :Hi there
 
-# User joins channel
-:nickname!~login@userhost.com JOIN #channel
-
-# Quitting server
+## Quitting server
 > QUIT
-:ma!~ma@dev.com QUIT :Client quit
+:nickname!~login@userhost.com QUIT :Client quit
