@@ -1,5 +1,7 @@
-// Parse of incoming requests to an IRC server.
-// Based on https://tools.ietf.org/html/rfc2812 and reverse engineering existing server and clients.
+// Parser for incoming requests to an IRC server.
+//
+// Based on https://tools.ietf.org/html/rfc2812
+// And reverse engineering existing server and clients.
 
 // Lexing rules
 %lex
