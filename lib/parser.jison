@@ -42,7 +42,7 @@ requests:
 
 request:
   // Instead of returning objects, we use a callback each time we match a request.
-  command CRLF                  { yy.onRequest($1) }
+  command CRLF                  { if (yy.onRequest) yy.onRequest($1) }
   // `error` is for error recovery: http://dinosaur.compilertools.net/bison/bison_9.html#SEC81
   // If there's an error while parsing a command, this rule will catch it.
 | error CRLF
@@ -54,6 +54,7 @@ command:
 | JOIN CHANNEL                  { $$ = { command: $1, channel: $2 } }
 | PRIVMSG CHANNEL string        { $$ = { command: $1, channel: $2, message: $3 } }
 | QUIT                          { $$ = { command: $1 } }
+| QUIT string                   { $$ = { command: $1, message: $2 } }
 ;
 
 string:
