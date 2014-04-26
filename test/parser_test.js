@@ -47,7 +47,7 @@ describe('Parser', function() {
     }])
   })
 
-  it('parse several request', function () {
+  it('parse several requests', function () {
     assertParse("NICK ma\r\nNICK ma\r\n", [
       { command: 'NICK', nick: 'ma' },
       { command: 'NICK', nick: 'ma' }
