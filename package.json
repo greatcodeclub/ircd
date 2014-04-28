@@ -23,6 +23,7 @@
   "devDependencies": {
     "mocha": "1.x",
     "jison": "0.x",
-    "irc": "0.x"
+    "irc": "0.x",
+    "nodemon": "1.x"
   }
 }

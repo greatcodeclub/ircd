@@ -7,6 +7,7 @@
 > NICK nickname
 > USER login 0 * :Full Name
 :server.net 001 nickname :Welcome
+:server.net 376 nickname :End of /MOTD command.
 
 ## Joining a channel
 > JOIN #channel
