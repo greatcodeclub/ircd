@@ -5,6 +5,9 @@
   "scripts": {
     "test": "make test"
   },
+  "bin": {
+    "ircd": "lib/server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/greatcodeclub/ircd.git"
