@@ -50,7 +50,7 @@ request:
 
 command:
   NICK WORD                     { $$ = { command: $1, nick: $2 } }
-| USER WORD WORD WORD string    { $$ = { command: $1, login: $2, flags: $3, host: $4, fullName: $5 } }
+| USER WORD WORD WORD string    { $$ = { command: $1, username: $2, hostname: $3, servername: $4, realname: $5 } }
 | JOIN CHANNEL                  { $$ = { command: $1, channel: $2 } }
 | PRIVMSG CHANNEL string        { $$ = { command: $1, channel: $2, message: $3 } }
 | QUIT                          { $$ = { command: $1 } }

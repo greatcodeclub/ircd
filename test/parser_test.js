@@ -23,12 +23,12 @@ describe('Parser', function() {
   })
   
   it('parse USER', function () {
-    assertParse("USER login 0 * :Full Name\r\n", [{
+    assertParse("USER username hostname.com server.com :Full Name\r\n", [{
       command: 'USER',
-      login: 'login',
-      flags: '0',
-      host: '*',
-      fullName: 'Full Name'
+      username: 'username',
+      hostname: 'hostname.com',
+      servername: 'server.com',
+      realname: 'Full Name'
     }])
   })
 

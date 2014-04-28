@@ -17,9 +17,9 @@ exports.connection = function() {
 exports.user = function(nick) {
   var user = new User(exports.server(), exports.connection())
   user.nick = nick
-  user.login = 'marc'
-  user.flags = '0'
-  user.host = 'ma.local'
-  user.fullName = 'Marc-Andre Cournoyer'
+  user.username = 'marc'
+  user.hostname = 'ma.local'
+  user.servername = 'server.com'
+  user.realname = 'Marc-Andre Cournoyer'
   return user
 }

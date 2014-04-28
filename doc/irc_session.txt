@@ -1,11 +1,11 @@
 # Sample IRC session
 # Lines starting with ">" are sent by the client.
 # Others are sent by the server.
-# https://tools.ietf.org/html/rfc2812
+# http://irchelp.org/irchelp/rfc/rfc.html
 
 ## Signing-in
 > NICK nickname
-> USER login 0 userhost.com :Full Name
+> USER username hostname servername :Real Name
 :server.net 001 nickname :Welcome
 :server.net 002 nickname :Your host is userhost.com, running version ircd-1.0
 :server.net 376 nickname :End of /MOTD command.
@@ -18,10 +18,9 @@
 
 ## Send a message
 > PRIVMSG #channel :Hi there
-
-## Broadcasting message to others
+### Broadcasting message to others
 :nickname!~login@userhost.com PRIVMSG #channel :Hi there
 
 ## Quitting server
-> QUIT
-:nickname!~login@userhost.com QUIT :Client quit
+> QUIT :Bye!
+:nickname!~login@userhost.com QUIT :Bye!
