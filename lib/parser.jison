@@ -1,4 +1,4 @@
-// Parser for incoming requests to an IRC server.
+// Parser for incoming messages to an IRC server.
 //
 // Based on https://tools.ietf.org/html/rfc2812
 // And reverse engineering existing server and clients.
@@ -30,19 +30,19 @@
 // Parsing rules
 %%
 
-// Data received by the server can contain multiple requests.
+// Data received by the server can contain multiple messages.
 data:
-  requests EOF
+  messages EOF
 ;
 
-requests:
-  request
-| requests request
+messages:
+  message
+| messages message
 ;
 
-request:
-  // Instead of returning objects, we use a callback each time we match a request.
-  command CRLF                  { if (yy.onRequest) yy.onRequest($1) }
+message:
+  // Instead of returning objects, we use a callback each time we match a message.
+  command CRLF                  { if (yy.onMessage) yy.onMessage($1) }
   // `error` is for error recovery: http://dinosaur.compilertools.net/bison/bison_9.html#SEC81
   // If there's an error while parsing a command, this rule will catch it.
 | error CRLF
@@ -64,7 +64,7 @@ string:
 %%
 // Custom code added to the generated parser.
 
-// Set the callback for when a request is parsed
-parser.onRequest = function(callback) {
-  this.yy.onRequest = callback
+// Set the callback for when a message is parsed
+parser.onMessage = function(callback) {
+  this.yy.onMessage = callback
 }

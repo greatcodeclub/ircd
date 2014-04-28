@@ -1,4 +1,4 @@
-# Sample IRC session
+# IRC protocol fundamentals
 Lines starting with ">" are sent by the client.
 Indented ones are sent by the server.
 
@@ -32,5 +32,9 @@ Broadcasting message to others
 ## Quitting server
 
 > QUIT :Bye!
+
+Or
+
+> QUIT
 
     :nickname!~login@userhost.com QUIT :Bye!

@@ -2,9 +2,9 @@ var Parser = require('../lib/parser').Parser
 
 var parser = new Parser()
 
-// Each time a request is parsed, this callback is called.
-parser.onRequest(function(request) {
-  console.log(request)
+// Each time a message is parsed, this callback is called.
+parser.onMessage(function(message) {
+  console.log(message)
 })
 
 parser.parse("NICK marc\r\n")

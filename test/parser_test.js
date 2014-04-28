@@ -2,17 +2,17 @@ var assert = require('assert'),
     Parser = require('../lib/parser').Parser
 
 describe('Parser', function() {
-  function assertParse(data, expectedRequests) {
-    var actualRequests = []
+  function assertParse(data, expectedMessages) {
+    var actualMessages = []
     var parser = new Parser()
 
-    parser.onRequest(function(command) {
-      actualRequests.push(command)
+    parser.onMessage(function(command) {
+      actualMessages.push(command)
     })
 
     parser.parse(data)
 
-    assert.deepEqual(expectedRequests, actualRequests)
+    assert.deepEqual(expectedMessages, actualMessages)
   }
 
   it('parse NICK', function () {
@@ -47,14 +47,14 @@ describe('Parser', function() {
     }])
   })
 
-  it('parse several requests', function () {
+  it('parse several messages', function () {
     assertParse("NICK ma\r\nNICK ma\r\n", [
       { command: 'NICK', nick: 'ma' },
       { command: 'NICK', nick: 'ma' }
     ])
   })
 
-  it('parse request after error', function () {
+  it('parse message after error', function () {
     assertParse("BAD ONE THAT IS\r\nNICK ma\r\n", [
       { command: 'NICK', nick: 'ma' }
     ])
