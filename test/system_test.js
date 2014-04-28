@@ -2,11 +2,11 @@ var assert = require('assert'),
     irc = require('irc'),
     childProcess = require('child_process')
 
-// System tests test the whole system.
+// Test the whole system at once.
 describe('System', function() {
   // Start a real server in a child process
   before(function(done) {
-    this.server = childProcess.spawn('./bin/ircd')
+    this.server = childProcess.spawn('node', ['lib/server.js'])
     this.server.stdout.once('data', function() {
       done()
     })
