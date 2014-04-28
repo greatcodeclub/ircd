@@ -1,6 +1,7 @@
 var assert = require('assert'),
     irc = require('irc'),
-    childProcess = require('child_process')
+    childProcess = require('child_process'),
+    _ = require('underscore')
 
 // Test the whole system at once.
 describe('System', function() {
@@ -26,17 +27,15 @@ describe('System', function() {
   }
 
   beforeEach(function(done) {
-    var self = this
-    this.client1 = connect('client1', function() {
-      self.client2 = connect('client2', done)
-    })
+    var done = _.after(2, done)
+    this.client1 = connect('client1', done)
+    this.client2 = connect('client2', done)
   })
 
   afterEach(function(done) {
-    var self = this
-    this.client1.disconnect(null, function() {
-      self.client2.disconnect(null, done)
-    })
+    var done = _.after(2, done)
+    this.client1.disconnect(null, done)
+    this.client2.disconnect(null, done)
   })
 
   it('sends names', function(done) {
