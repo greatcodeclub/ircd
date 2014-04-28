@@ -4,7 +4,7 @@ var server = net.createServer(function(connection) {
   connection.on('data', function(data) {
     console.log('Received: ' + data.toString())
 
-    connection.write('By!\n')
+    connection.write('Bye!\n')
     connection.end()
   })
 })
