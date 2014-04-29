@@ -22,12 +22,22 @@ describe('Parser', function() {
     }])
   })
   
-  it('parse USER', function () {
+  it('parse USER (RFC 1459)', function () {
     assertParse("USER username hostname.com server.com :Full Name\r\n", [{
       command: 'USER',
       username: 'username',
       hostname: 'hostname.com',
       servername: 'server.com',
+      realname: 'Full Name'
+    }])
+  })
+
+  it('parse USER (RFC 2812)', function () {
+    assertParse("USER username 8 hostname.com :Full Name\r\n", [{
+      command: 'USER',
+      username: 'username',
+      hostname: 'hostname.com',
+      mode: '8',
       realname: 'Full Name'
     }])
   })
