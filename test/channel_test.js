@@ -12,7 +12,7 @@ describe('Channel', function() {
   })
 
   it('sends', function () {
-    this.channel.send(this.user1, "some", "data")
+    this.channel.sendCommand(this.user1, "some", "data")
     assert.deepEqual(this.user1.connection.sent, [":ma!~marc@ma.local some data\r\n"])
     assert.deepEqual(this.user2.connection.sent, [":ma!~marc@ma.local some data\r\n"])
   })
