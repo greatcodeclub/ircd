@@ -9,8 +9,8 @@ exports.server = function() {
 
 exports.connection = function() {
   return {
-    sent: [],
-    write: function(data) { this.sent.push(data) }
+    sent: "",
+    write: function(data) { this.sent += data }
   }
 }
 

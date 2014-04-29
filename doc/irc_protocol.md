@@ -17,7 +17,7 @@ Source: [Internet Relay Chat Protocol](http://irchelp.org/irchelp/rfc/rfc.html)
 
 > JOIN #channel
 
-    :nickname!~login@userhost.com JOIN #channel
+    :from-nick!~from-username@from-hostname JOIN #channel
     :server.net 353 nickname @ #channel :@nickname
     :server.net 366 nickname #channel :End of /NAMES list.
 
