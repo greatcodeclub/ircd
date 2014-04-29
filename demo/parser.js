@@ -7,6 +7,9 @@ parser.onMessage(function(message) {
   console.log(message)
 })
 
+console.log("Parsing NICK marc")
 parser.parse("NICK marc\r\n")
 
+console.log("Parsing JOIN #channel")
+console.log("        QUIT")
 parser.parse("JOIN #channel\r\nQUIT\r\n")
