@@ -2,15 +2,15 @@ var User = require('../lib/user').User
 
 exports.server = function() {
   return {
-    name: 'test.local',
-    log: function() {}
+    name: 'test.local'
   }
 }
 
 exports.connection = function() {
   return {
-    sent: [],
-    write: function(data) { this.sent.push(data) }
+    sent: "",
+    write: function(data) { this.sent += data },
+    end: function() {}
   }
 }
 
