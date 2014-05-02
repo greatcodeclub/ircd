@@ -1,6 +1,9 @@
 // Parser for incoming messages to an IRC server.
 //
-// Based on https://tools.ietf.org/html/rfc2812
+// Based on:
+// - https://tools.ietf.org/html/rfc2812
+// - http://irchelp.org/irchelp/rfc/rfc.html
+// - http://en.wikipedia.org/wiki/List_of_Internet_Relay_Chat_commands
 // And reverse engineering existing server and clients.
 
 // Lexing rules
@@ -21,6 +24,7 @@
 // Arguments
 ":"[^\r\n]+           return 'STRING' // string match everything until end of line
 '#'\w+                return 'CHANNEL'
+\d                    return 'MODE'
 [^\s]+                return 'WORD'
 
 <<EOF>>               return 'EOF'
@@ -49,16 +53,35 @@ message:
 ;
 
 command:
-  NICK WORD                     { $$ = { command: $1, nick: $2 } }
-| USER WORD WORD WORD string    { $$ = { command: $1, username: $2, hostname: $3, servername: $4, realname: $5 } }
-| JOIN CHANNEL                  { $$ = { command: $1, channel: $2 } }
-| PRIVMSG CHANNEL string        { $$ = { command: $1, channel: $2, message: $3 } }
-| QUIT                          { $$ = { command: $1 } }
-| QUIT string                   { $$ = { command: $1, message: $2 } }
+// NICK <nickname>
+   NICK any                      { $$ = { command: $1, nick: $2 } }
+
+// USER <username> <hostname> <servername> <realname> (RFC 1459)
+|  USER any WORD any string      { $$ = { command: $1, username: $2, hostname: $3, servername: $4, realname: $5 } }
+// USER <user> <mode> <hostname> <realname> (RFC 2812)
+|  USER any MODE any string      { $$ = { command: $1, username: $2, mode: $3, hostname: $4, realname: $5 } }
+
+// JOIN <channel>
+|  JOIN CHANNEL                  { $$ = { command: $1, channel: $2 } }
+
+// PRIVMSG <msgtarget> <message>
+|  PRIVMSG CHANNEL string        { $$ = { command: $1, channel: $2, message: $3 } }
+
+// QUIT [<message>]
+|  QUIT                          { $$ = { command: $1 } }
+|  QUIT string                   { $$ = { command: $1, message: $2 } }
 ;
 
+// :String with spaces
 string:
-  STRING                        { $$ = $1.slice(1) }
+   STRING                        { $$ = $1.slice(1) }
+;
+
+// Any type of argumebnts
+any:
+  WORD
+| CHANNEL
+| MODE
 ;
 
 %%
