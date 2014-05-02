@@ -47,4 +47,18 @@ describe('Protocol', function() {
     assert.equal(otherUser.connection.sent,
                  ":ma!~marc@ma.local PRIVMSG #mychannel :Hello\r\n")
   })
+
+  it('handles QUIT', function () {
+    var otherUser = mocks.user('bob')
+    var channel = this.server.getChannel('#mychannel')
+
+    channel.join(this.user)
+    channel.join(otherUser)
+
+    protocol.QUIT(this.server, this.user, { message: 'Bye!' })
+
+    assert(this.user.connection.closed)
+    assert.equal(this.user.connection.sent, "")
+    assert.equal(otherUser.connection.sent, ":ma!~marc@ma.local QUIT :Bye!\r\n")
+  })
 })
