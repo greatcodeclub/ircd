@@ -22,16 +22,4 @@ describe('Protocol', function() {
                  ":test.local 002 ma :Your host is hostname, running version ircd-1.0\r\n" +
                  ":test.local 376 ma :End of /MOTD command.\r\n")
   })
-
-  it('handles JOIN', function () {
-    this.server.getChannel('#mychannel').join(mocks.user('bob'))
-
-    protocol.JOIN(this.server, this.user, { channel: '#mychannel' })
-
-    assert.equal(this.user.connection.sent,
-                 ":ma!~marc@ma.local JOIN #mychannel\r\n" +
-                 ":test.local 353 ma @ #mychannel :bob\r\n" +
-                 ":test.local 353 ma @ #mychannel :ma\r\n" +
-                 ":test.local 366 ma #mychannel :End of /NAMES list.\r\n")
-  })
 })

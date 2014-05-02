@@ -12,13 +12,4 @@ describe('User', function() {
     assert.deepEqual(this.user.connection.sent,
                      ":test.local 001 ma :Welcome\r\n")
   })
-
-  it('sends command', function () {
-    var fromUser = mocks.user('from')
-    
-    this.user.sendCommand(fromUser, "JOIN", "#test")
-    
-    assert.deepEqual(this.user.connection.sent,
-                     ":from!~marc@ma.local JOIN #test\r\n")
-  })
 })

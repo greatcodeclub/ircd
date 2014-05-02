@@ -1,16 +1,8 @@
-var User = require('../lib/user').User,
-    Channel = require('../lib/channel').Channel
+var User = require('../lib/user').User
 
 exports.server = function() {
   return {
-    name: 'test.local',
-
-    log: function() {},
-
-    channels: {},
-    getChannel: function(name) {
-      return this.channels[name] = this.channels[name] || new Channel(name)
-    }
+    name: 'test.local'
   }
 }
 
