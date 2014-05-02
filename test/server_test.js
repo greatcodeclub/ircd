@@ -1,21 +1,11 @@
 var assert = require('assert'),
     irc = require('irc'),
-    childProcess = require('child_process'),
-    _ = require('underscore')
+    _ = require('underscore'),
+    server = require('../lib/server')
 
-// Test the whole system at once.
-describe('System', function() {
-  // Start a real server in a child process
-  before(function(done) {
-    this.server = childProcess.spawn('node', ['lib/server.js'])
-    this.server.stdout.once('data', function() {
-      done()
-    })
-  })
-  after(function() {
-    this.server.kill()
-  })
+server.log = function() {} // quiet server
 
+describe('Server', function() {
   function connect(nick, done) {
     var client = new irc.Client('localhost', nick)
     client.on('registered', function() {
