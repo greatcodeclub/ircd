@@ -8,6 +8,6 @@ describe('User', function() {
 
   it('sends reply', function () {
     this.user.sendReply("001", ":Welcome")
-    assert.deepEqual(this.user.connection.sent, [":test.local 001 ma :Welcome\r\n"])
+    assert.equal(this.user.connection.sent, ":test.local 001 ma :Welcome\r\n")
   })
 })
