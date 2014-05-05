@@ -19,9 +19,16 @@ describe('User', function() {
     user.pingDelay = 1
     user.pingLater()
 
+    // Send the PING
     setTimeout(function() {
       assert.equal(user.connection.sent, "PING :test.local\r\n")
-      done()
+      assert(!user.connection.closed)
     }, 2)
+
+    // Next time, the connection should be closed
+    setTimeout(function() {
+      assert(user.connection.closed)
+      done()
+    }, 10)
   })
 })
