@@ -12,4 +12,16 @@ describe('User', function() {
     assert.deepEqual(this.user.connection.sent,
                      ":test.local 001 ma :Welcome\r\n")
   })
+
+  it('ping later', function (done) {
+    var user = this.user
+
+    user.pingDelay = 1
+    user.pingLater()
+
+    setTimeout(function() {
+      assert.equal(user.connection.sent, "PING :test.local\r\n")
+      done()
+    }, 2)
+  })
 })
