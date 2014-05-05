@@ -10,7 +10,8 @@ exports.connection = function() {
   return {
     sent: "",
     write: function(data) { this.sent += data },
-    end: function() {}
+    closed: false,
+    end: function() { this.closed = true }
   }
 }
 
